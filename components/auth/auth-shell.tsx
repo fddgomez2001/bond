@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
+import { PageTransition } from "@/components/ui/page-transition";
 
 /**
  * Split-card layout shared by every auth screen: a slate panel (title,
@@ -36,6 +37,7 @@ export function AuthShell({ aside, children }: { aside: ReactNode; children: Rea
 
       {/* items-* stops the card from stretching to the full screen height. */}
       <main className="relative flex w-full flex-1 items-start px-3 pb-6 sm:items-center sm:px-6 sm:pb-10">
+        <PageTransition>
         <div className="mx-auto grid w-full max-w-xl animate-fade-up gap-2 rounded-[24px] bg-white p-2 shadow-[0_30px_80px_-30px_rgba(56,73,73,0.55)] sm:gap-3 sm:rounded-[28px] sm:p-3 lg:max-w-6xl lg:grid-cols-[minmax(0,5fr)_minmax(0,8fr)]">
           <aside className="relative isolate overflow-hidden rounded-[18px] bg-bond-slate px-5 py-6 text-white sm:rounded-[22px] sm:px-8 sm:py-8 lg:min-h-[600px] lg:px-10 lg:py-10">
             {aside}
@@ -43,6 +45,7 @@ export function AuthShell({ aside, children }: { aside: ReactNode; children: Rea
           </aside>
           <section className="px-3 py-5 sm:px-6 sm:py-8 lg:px-12 lg:py-12">{children}</section>
         </div>
+        </PageTransition>
       </main>
     </div>
   );

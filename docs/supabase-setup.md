@@ -15,10 +15,13 @@ Open **SQL Editor** and run these files in order (copy, paste, Run):
 
 1. `supabase/migrations/20261015000000_phase1_profiles.sql` — creates `profiles`, `vendor_profiles`, `identity_documents`, the sign-up trigger, column grants, and RLS policies.
 2. `supabase/migrations/20261015000100_private_documents_storage.sql` — creates the private `private-documents` bucket (2 MB per file; JPG, PNG, WebP and PDF only) and its read policies.
+3. `supabase/migrations/20261016000000_marketplace.sql` — the order flows: `shops`, `listings`, `cart_items`, `event_bookings`, `orders`, `order_items`, `order_events`, `reviews`, `reports`, the functions that place orders and move them along, their RLS policies, and the public `public-media` bucket for shop logos and listing photos (2 MB, images only).
 
-Both are safe to re-run. If you use the Supabase CLI instead: `npx supabase link --project-ref <ref>`, then `npx supabase db push`.
+All three are safe to re-run. If you use the Supabase CLI instead: `npx supabase link --project-ref <ref>`, then `npx supabase db push`.
 
-**Check it worked:** in **Table Editor** you should see the three tables, each with RLS enabled. In **Storage** you should see `private-documents`, marked *private*.
+**Check it worked:** in **Table Editor** you should see `profiles`, `vendor_profiles`, `identity_documents` and the nine marketplace tables, each with RLS enabled. In **Storage** you should see `private-documents` (*private*) and `public-media` (*public*).
+
+> Until the marketplace migration has run, the shop, order and vendor-tool pages still open but show empty lists, and saving a shop shows "Could not find the table 'public.shops'".
 
 ## 3. Auth settings
 
@@ -87,21 +90,17 @@ Password recovery stays a **static preview** until you set `NEXT_PUBLIC_ENABLE_P
 
 **After logging in: "We couldn't load your profile".** The migrations haven't been run. Run both (step 2). The first one also creates profiles for accounts that already existed.
 
-## 6. Make an admin (optional)
+## 6. Create your admin account
 
-Admins can read all profiles and documents and change review status. There's no admin UI yet; review vendors in the Table Editor or SQL. To promote a user:
+Admins review vendor applications at **/dashboard/admin**. Create one from your own terminal, so the password never appears in code or chat:
 
-```sql
-update public.profiles set role = 'admin' where id = '<user uuid from Authentication → Users>';
+```bash
+npm run admin:create
 ```
 
-Approve a vendor:
+It asks for an email, your name and a password (hidden while you type; same rules as sign-up: 8+ characters with upper and lower case, a number and a symbol). Then log in at `/login` with that email and password. Running it with the email of an existing account promotes that account instead.
 
-```sql
-update public.vendor_profiles
-set business_verification_status = 'approved', reviewed_at = now()
-where user_id = '<vendor user uuid>';
-```
+**Reviewing vendors:** open an application to see the vendor's details and documents. Documents load through private links that expire after 10 minutes. Choose **Approve**, **Request resubmission** or **Reject**; notes are required for the last two, and the vendor sees them on their dashboard.
 
 ## 7. Testing checklist
 
@@ -139,3 +138,24 @@ Run `npm run dev` and work through these.
 - `update public.profiles set role = 'admin' where id = auth.uid();` as a normal user → **permission denied**.
 - `update public.vendor_profiles set business_verification_status = 'approved';` as a vendor → **permission denied** (or 0 rows).
 - Reading another user's profile row returns nothing.
+
+## 8. Marketplace checklist (gifts, surprises, event services)
+
+Payments are in **test mode**: nothing is charged, and the payment is recorded as *held by BOND*. Card `4000 0000 0000 0002` always fails, so you can try the "payment unsuccessful → try again" path. GCash, Maya and any other card number succeed.
+
+**Vendor (approved)**
+1. `/dashboard/vendor` shows a setup checklist. Open **Shop settings** → name, city, delivery fee, what you offer, logo → **Create my shop**.
+2. **Products** → **Add product** → Gift or Surprise, photo, price → **Submit for review**. **Services** → **Add service** → category (choose *Event package* to list inclusions), event types.
+3. Each listing shows **Waiting for approval** until an admin approves it. Editing a live listing sends it back for review.
+
+**Admin**
+1. **Listing Approvals** → approve, or reject with notes (the vendor sees them and can resubmit).
+2. **Orders** shows every order and how much is held, released and refunded. **Reports** lists problems customers reported: refund the customer or release the payment to the shop, with a note.
+
+**Customer**
+1. **Gift:** home → *Send a gift* → choose a store → add gifts to the cart (one shop per cart) → checkout (recipient, address, message) → pay → track it in **My Orders**.
+2. **Surprise:** *Plan a surprise* → date & time (at least 3 hours ahead) and recipient → choose a surprise → review → pay.
+3. **Event services:** *Book event services* → event type → date, time & place (at least 1 day ahead) → a package (preview its inclusions) or *Customize* (tick categories, pick a provider for each) → review → pay → optionally request an appointment with your organizers.
+4. When the shop marks an order delivered (or the service completed), confirm it: the payment is released to the shop and you can leave a star rating. *Report a problem* keeps the payment on hold until an admin decides. You can cancel until the shop starts preparing (full refund).
+
+**Vendor orders:** **Orders** → open one → *Start preparing* → *Ready for delivery* → *Delivered* (or *Delivery didn't go through* → *Try delivery again*). Service bookings start with *Confirm booking & appointment*. Declining needs a reason and refunds the customer. **Sales** shows held vs. released money; **Reviews** shows ratings.

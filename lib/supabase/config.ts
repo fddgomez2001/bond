@@ -10,6 +10,19 @@ export function isSupabaseConfigured() {
 }
 
 /**
+ * Auth cookies are httpOnly: all Supabase calls happen on the server, so page
+ * scripts never need the tokens — and an injected script can't steal them.
+ * (If you later use lib/supabase/client.ts in the browser, it won't see the
+ * session; read user data through the server instead.)
+ */
+export const authCookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
+  path: "/",
+};
+
+/**
  * Set when the user logs in with "Keep me signed in" unchecked. Auth cookies
  * are then written without an expiry, so the browser drops them when it
  * closes. Supabase still refreshes tokens normally while the browser is open.

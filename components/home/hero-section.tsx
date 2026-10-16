@@ -1,10 +1,9 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { teamPlaceholders } from "@/lib/data/home-content";
 import { cn } from "@/lib/utils";
-import mascot from "@/public/brand/hero-mascot.png";
+import { HeroMascot } from "./hero-mascot";
 
 /** Stagger for the one-time hero entrance (see .hero-enter in globals.css). */
 const delay = (ms: number) => ({ "--hero-delay": `${ms}ms` }) as CSSProperties;
@@ -73,16 +72,7 @@ export function HeroSection() {
           />
           <div className="hero-mascot-enter w-[min(84vw,24rem)] sm:w-[26rem] md:w-[28rem] lg:w-full lg:max-w-[36rem] 2xl:max-w-[40rem]">
             <div className="hero-mascot-float">
-              <Image
-                src={mascot}
-                alt="BOND's mascot, a smiling monkey in a blue BOND cap carrying gifts, balloons and party treats"
-                preload
-                placeholder="blur"
-                quality={85}
-                sizes="(min-width: 1536px) 640px, (min-width: 1024px) 45vw, (min-width: 768px) 448px, (min-width: 640px) 416px, 84vw"
-                className="h-auto w-full drop-shadow-[0_18px_24px_rgba(56,73,73,0.28)] select-none"
-                draggable={false}
-              />
+              <HeroMascot />
             </div>
           </div>
           <div

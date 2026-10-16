@@ -36,13 +36,18 @@ export const siteConfig = {
   },
 
   phonePlaceholder: "e.g. +63 912 345 6789",
+
+  /** All prices are shown in Philippine pesos. */
+  currency: { code: "PHP", locale: "en-PH" },
 } as const;
 
-export const homeNav = [
+/** Homepage links. Items with a `section` scroll to it; the rest are separate pages. */
+export const homeNav: { label: string; href: string; section?: string }[] = [
   { label: "Home", href: "/#home", section: "home" },
+  { label: "Shops", href: "/shops" },
   { label: "Events", href: "/#events", section: "events" },
   { label: "About", href: "/#about", section: "about" },
   { label: "Pricing", href: "/#pricing", section: "pricing" },
   { label: "FAQ", href: "/#faq", section: "faq" },
   { label: "Contact", href: "/#contact", section: "contact" },
-] as const;
+];

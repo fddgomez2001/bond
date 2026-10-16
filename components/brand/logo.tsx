@@ -14,12 +14,15 @@ export function Logo({
   className,
   href = "/",
   eager,
+  transitionTypes,
 }: {
   tone?: "light" | "dark";
   className?: string;
   href?: string | null;
   /** Load immediately — for logos at the top of the page. */
   eager?: boolean;
+  /** View-transition types for the link (see components/ui/page-transition.tsx). */
+  transitionTypes?: string[];
 }) {
   const image = (
     <Image
@@ -38,6 +41,7 @@ export function Logo({
   return (
     <Link
       href={href}
+      transitionTypes={transitionTypes}
       className="inline-flex shrink-0 rounded-lg transition-transform duration-300 ease-smooth hover:scale-[1.03] active:scale-95"
       aria-label="BOND home"
     >

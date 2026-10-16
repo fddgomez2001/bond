@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { LayoutDashboard } from "lucide-react";
 import { buttonClasses } from "@/components/ui/button";
-import { getSessionUser } from "@/lib/auth/session";
+import { dashboardPathFor } from "@/lib/auth/routes";
+import { getCurrentAccount } from "@/lib/auth/session";
 
 const pill = "rounded-[15px] px-5 font-heading transition-all duration-300 ease-smooth hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:scale-[0.98]";
 
@@ -23,12 +24,15 @@ export function GuestActions() {
 
 /** Reads the session, so it must render inside <Suspense>. */
 export async function NavAuthActions() {
-  const user = await getSessionUser();
-  if (!user) return <GuestActions />;
+  const account = await getCurrentAccount();
+  if (!account) return <GuestActions />;
 
   return (
     <Link
-      href="/dashboard"
+      // Straight to the right dashboard (no /dashboard redirect hop), with
+      // the forward page transition.
+      href={dashboardPathFor(account.profile?.role)}
+      transitionTypes={["nav-forward"]}
       className={buttonClasses({ variant: "primary", size: "sm", className: pill })}
       title="You're signed in"
     >

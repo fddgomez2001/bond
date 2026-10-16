@@ -9,6 +9,7 @@ import { PricingSection } from "@/components/home/pricing-section";
 import { Footer } from "@/components/layout/footer";
 import { GuestActions, NavAuthActions } from "@/components/layout/nav-auth-actions";
 import { Navbar } from "@/components/layout/navbar";
+import { PageTransition } from "@/components/ui/page-transition";
 
 export default function HomePage() {
   return (
@@ -22,14 +23,16 @@ export default function HomePage() {
         }
       />
       <HomeEnterEffects />
-      <main className="flex-1">
-        <HeroSection />
-        <FeaturedEvents />
-        <AboutSection />
-        <PricingSection />
-        <FaqSection />
-        <ContactSection />
-      </main>
+      <PageTransition>
+        <main className="flex-1">
+          <HeroSection />
+          <FeaturedEvents />
+          <AboutSection />
+          <PricingSection />
+          <FaqSection />
+          <ContactSection />
+        </main>
+      </PageTransition>
       <Footer />
     </>
   );

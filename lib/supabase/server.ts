@@ -2,8 +2,10 @@ import "server-only";
 
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 import {
   SESSION_ONLY_COOKIE,
+  authCookieOptions,
   supabaseAnonKey,
   supabaseUrl,
   withSessionPreference,
@@ -17,11 +19,17 @@ import {
  * only passed by the login action, before that preference cookie exists.
  */
 export async function createClient(options: { sessionOnly?: boolean } = {}) {
+  // Every query is per-session, so wait for a real request. Without this,
+  // Partial Prefetching prerenders the App Shell with cookies available and
+  // the auth client's startup reads Date.now() mid-prerender, which Next.js
+  // reports as "encountered the unstable value Date.now()".
+  await connection();
   const cookieStore = await cookies();
   const sessionOnly =
     options.sessionOnly ?? cookieStore.get(SESSION_ONLY_COOKIE)?.value === "1";
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookieOptions: authCookieOptions,
     cookies: {
       getAll() {
         return cookieStore.getAll();

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { plans } from "@/lib/data/home-content";
+import { formatPeso } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "./section-heading";
@@ -38,8 +39,10 @@ export function PricingSection() {
               )}
               <p className="text-sm font-medium text-white/80">{plan.name}</p>
               <p className="mt-3 flex items-baseline gap-1">
-                <span className="font-heading text-4xl font-bold">{plan.price}</span>
-                {plan.period && <span className="text-sm text-white/60">{plan.period}</span>}
+                <span className="font-heading text-4xl font-bold">
+                  {plan.price === null ? "TBA" : formatPeso(plan.price)}
+                </span>
+                {plan.price !== null && plan.period && <span className="text-sm text-white/60">{plan.period}</span>}
               </p>
 
               {plan.cta ? (

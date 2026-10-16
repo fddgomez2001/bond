@@ -92,7 +92,10 @@ export async function signIn(input: unknown, next?: string): Promise<FormState> 
 export async function signOut() {
   if (isSupabaseConfigured()) {
     const supabase = await createClient();
-    await supabase.auth.signOut();
+    // "local" ends only this browser's session. The default ("global") also
+    // revokes every other device, leaving their cookies dead — the source of
+    // "Invalid Refresh Token: Refresh Token Not Found" on those devices.
+    await supabase.auth.signOut({ scope: "local" });
   }
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_ONLY_COOKIE);
@@ -277,7 +280,8 @@ export async function updatePassword(input: unknown): Promise<FormState> {
   if (error) return { ok: false, message: authErrorMessage(error, "We couldn't update your password.") };
 
   cookieStore.delete(RECOVERY_COOKIE);
-  await supabase.auth.signOut();
+  // After a password reset, end the session on every device on purpose.
+  await supabase.auth.signOut({ scope: "global" });
   await setFlash("password-updated");
   redirect("/login");
 }

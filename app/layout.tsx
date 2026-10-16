@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { Outfit, Poppins, Wix_Madefor_Display } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
@@ -61,7 +62,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col font-sans">
         {children}
-        <Toaster />
+        {/* usePathname() inside reads the URL, so it needs its own boundary. */}
+        <Suspense fallback={null}>
+          <Toaster />
+        </Suspense>
       </body>
     </html>
   );

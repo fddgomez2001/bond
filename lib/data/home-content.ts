@@ -26,11 +26,14 @@ export const faqs = [
   },
 ] as const;
 
-/** SAMPLE plans from the design file — pricing is not final. */
+/**
+ * SAMPLE plans from the design file — pricing is not final.
+ * `price` is a monthly amount in Philippine pesos; null means "to be announced".
+ */
 export const plans = [
   {
     name: "Free",
-    price: "$0",
+    price: 0 as number | null,
     period: "/month",
     cta: { label: "Get started for free", href: "/signup/customer" },
     features: [
@@ -42,7 +45,7 @@ export const plans = [
   },
   {
     name: "Plus",
-    price: "TBA",
+    price: null as number | null,
     period: "",
     cta: null,
     features: [

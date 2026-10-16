@@ -45,6 +45,18 @@ function consumeFlash(): ToastInput | null {
         return { tone: "success", title: "Account created", message: "Welcome to BOND! You're logged in." };
       case "password-updated":
         return { tone: "success", title: "Password updated", message: "Log in with your new password." };
+      case "session-expired":
+        return { tone: "info", title: "Your session has ended", message: "Please log in again to continue." };
+      case "vendor-approved":
+        return { tone: "success", title: "Vendor approved", message: "Their vendor tools are now unlocked." };
+      case "vendor-resubmission":
+        return { tone: "info", title: "Resubmission requested", message: "The vendor will see your notes on their dashboard." };
+      case "payment-success":
+        return { tone: "success", title: "Payment successful", message: "BOND is holding it safely until your order is done." };
+      case "listing-submitted":
+        return { tone: "success", title: "Submitted for review", message: "An admin will check it before customers can see it." };
+      case "vendor-rejected":
+        return { tone: "info", title: "Application rejected", message: "The vendor will see your notes on their dashboard." };
     }
   } catch {
     // Ignore a malformed cookie.

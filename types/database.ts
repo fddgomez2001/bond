@@ -32,6 +32,7 @@ export interface VendorProfile {
   proof_of_business_path: string | null;
   submitted_at: string | null;
   reviewed_at: string | null;
+  reviewed_by: string | null;
   review_notes: string | null;
   created_at: string;
   updated_at: string;

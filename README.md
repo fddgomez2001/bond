@@ -1,9 +1,9 @@
-# BOND — Phase 1
+# BOND
 
-Homepage, login, customer and vendor registration, email verification, and role-based dashboards for **BOND**.
+Homepage, login, customer and vendor registration, email verification, role-based dashboards, and the **marketplace**: verified shops, gift / surprise / event-service ordering, vendor tools and admin approvals for **BOND**.
 Built with Next.js 16 (App Router, Cache Components), TypeScript, Tailwind CSS v4, Supabase Auth/Postgres/Storage, React Hook Form and Zod.
 
-> Phase 1 only. Event management, bookings, vendor tools and admin review are **not** built yet; every event, plan, team member and contact detail on the site is clearly marked demo or placeholder content.
+> Payments run in **test mode** — no money moves until a payment provider (e.g. PayMongo) is connected. Homepage events, plans, team members and contact details are still demo or placeholder content.
 
 ## Quick start
 
@@ -22,6 +22,7 @@ The app runs without Supabase keys: every page renders, forms validate, and auth
 | `npm start` | Serve the production build |
 | `npm run lint` | ESLint |
 | `npx tsc --noEmit` | Type check only (run `npx next typegen` first on a fresh clone) |
+| `npm run admin:create` | Create an admin account (or promote an existing one) — prompts for a hidden password |
 
 ## Environment variables
 
@@ -37,7 +38,7 @@ The app runs without Supabase keys: every page renders, forms validate, and auth
 
 ## Setting up Supabase
 
-Full walkthrough: **[docs/supabase-setup.md](docs/supabase-setup.md)** — run the two SQL migrations, configure auth settings and redirect URLs, and paste the email templates that include the 6-digit code.
+Full walkthrough: **[docs/supabase-setup.md](docs/supabase-setup.md)** — run the three SQL migrations (the third, `20261016000000_marketplace.sql`, adds shops, listings and orders), configure auth settings and redirect URLs, and paste the email templates that include the 6-digit code.
 
 ## Deploying to Vercel
 
@@ -55,8 +56,27 @@ Checklist and domain setup: **[docs/deployment.md](docs/deployment.md)**.
 | `/verify-email` | Enter the 6-digit code, resend with cooldown |
 | `/forgot-password`, `/reset-password` | Email → code → new password (static preview until enabled) |
 | `/dashboard` | Sends each user to the dashboard for their role |
-| `/dashboard/customer` | Customer landing page (partial — "coming soon" sections marked) |
-| `/dashboard/vendor` | Vendor application status |
+| `/dashboard/customer` | Customer home: start a gift / surprise / event order, recent orders, popular shops |
+| `/shops`, `/shops/[slug]`, `/shops/[slug]/items/[id]` | Public directory of verified shops, each shop's gifts / surprises / services and reviews, item pages |
+| `/order/gift` | Gift flow: choose a store → cart → checkout → pay |
+| `/order/surprise` | Surprise flow: date, time & recipient → choose a surprise → review → pay |
+| `/order/event` | Event flow: type → date & place → package or customized checklist → review → pay |
+| `/cart`, `/checkout` | Gift cart (one shop per cart) and delivery details |
+| `/orders`, `/orders/[id]` | My orders; tracking, cancel, confirm received, report a problem, feedback |
+| `/orders/[id]/pay`, `/bookings/[id]/pay` | Test-mode payment (GCash, Maya, card) |
+| `/bookings/[id]` | Event booking: each organizer's part, appointment request |
+| `/dashboard/vendor` | Application status until approved; then overview with setup checklist |
+| `/dashboard/vendor/shop` | Shop settings (logo, delivery fee, open/closed) |
+| `/dashboard/vendor/products`, `/services` (+ `/new`, `/[id]`) | Listings with approval status, search, hide/show, delete |
+| `/dashboard/vendor/orders`, `/orders/[id]` | Orders by type; move each one along, decline with a reason |
+| `/dashboard/vendor/sales`, `/reviews`, `/marketing` | Held vs. released payments, ratings, shareable shop link |
+| `/dashboard/admin/listings` | Admin: approve or reject products and services |
+| `/dashboard/admin/orders`, `/reports` | Admin: every order; resolve reported problems (refund or release) |
+| `/dashboard/admin` | Admin overview: member and application stats, items waiting for review |
+| `/dashboard/admin/vendors` | Admin: vendor application queue by status |
+| `/dashboard/admin/vendors/[id]` | Admin: review documents, approve / request resubmission / reject |
+| `/dashboard/admin/users` | Admin: user directory with search, role filter and paging |
+| `/dashboard/admin/profile` | Admin: your own account details |
 | `/auth/confirm` | Handles links from Supabase emails |
 | `/api/auth/register/{customer,vendor}` | Registration endpoints (multipart, upload progress) |
 | `/privacy`, `/terms` | Placeholder legal pages |
@@ -107,6 +127,8 @@ proxy.ts                 Next.js 16 "proxy" (formerly middleware)
 ## Security notes
 
 - Passwords are handled only by Supabase Auth; nothing in this app stores them.
+- Login cookies are `httpOnly` (and `Secure` in production), so page scripts can't read or steal a session. Authenticated pages are sent `Cache-Control: private, no-store`.
+- Admins are created only with `npm run admin:create` (server-side, service role). Nobody — not even an admin — can change a role through the public API.
 - The role is assigned by a database trigger. Sign-up can request `customer` or `vendor` only; `admin` is granted manually in SQL. Users cannot change their role (column-level grants + RLS).
 - Vendors cannot change their own review status; only admins can (RLS).
 - Documents go to a **private** bucket under `<user id>/…`, uploaded by the server after checking each file's real type from its bytes. Users can read only their own folder.
@@ -114,3 +136,4 @@ proxy.ts                 Next.js 16 "proxy" (formerly middleware)
 - Registration endpoints reject cross-site requests. Server actions get Next.js's built-in origin check.
 - Rate limiting: Supabase Auth's server-side limits are the real enforcement. The in-memory limiter in `lib/security/rate-limit.ts` is an extra per-instance layer; swap it for Redis/Upstash if you need a shared limit.
 - Auth errors are generic where they could reveal whether an account exists.
+- Marketplace: customers can't write orders directly — orders are placed and moved along only through database functions that check who's calling and what state the order is in. Payment confirmation runs only with the service role (server-side). Vendors see only their own shop's orders; unverified vendors can't create shops or listings; nothing is public until an admin approves it, and any vendor edit sends it back for review. Shop logos and listing photos are uploaded by the server after checking the file's real type.

@@ -6,8 +6,10 @@ export function dashboardPathFor(role: UserRole | null | undefined) {
       return "/dashboard/customer";
     case "vendor":
       return "/dashboard/vendor";
+    case "admin":
+      return "/dashboard/admin";
     default:
-      // Admin tools and missing profiles are handled on /dashboard itself.
+      // Missing profiles are handled on /dashboard itself.
       return "/dashboard";
   }
 }

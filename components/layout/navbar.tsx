@@ -26,7 +26,7 @@ export function Navbar({ actions }: { actions: ReactNode }) {
   // Highlight the section currently in view, like the bold item in the design.
   useEffect(() => {
     const sections = homeNav
-      .map((item) => document.getElementById(item.section))
+      .map((item) => (item.section ? document.getElementById(item.section) : null))
       .filter((el): el is HTMLElement => Boolean(el));
     const observer = new IntersectionObserver(
       (entries) => {
