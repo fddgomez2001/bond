@@ -53,7 +53,7 @@ export default async function BookingPage({ params }: PageProps<"/bookings/[id]"
         </section>
 
         <MarketContent>
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="space-y-6 lg:col-span-2">
               {unpaid.length > 0 && (
                 <section className="flex flex-col gap-3 rounded-3xl border border-amber-300 bg-amber-50 p-5 sm:flex-row sm:items-center sm:justify-between">

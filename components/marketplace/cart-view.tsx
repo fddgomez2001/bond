@@ -56,7 +56,7 @@ export function CartView({ cart }: { cart: Cart }) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <section className="space-y-3 lg:col-span-2" aria-label="Items">
         {cart.shop && (
           <p className="text-sm text-bond-ink/65">

@@ -5,7 +5,7 @@ import { ContactForm } from "./contact-form";
 export function ContactSection() {
   return (
     <section id="contact" className="border-t border-white/5 bg-black py-16 sm:py-24 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-10">
+      <div className="mx-auto grid grid-cols-1 max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-10">
         <Reveal className="lg:col-span-6">
           <span className="inline-flex rounded-xl border border-white/25 bg-white/5 px-5 py-1.5 font-heading text-sm font-medium text-white/80">
             Contacts

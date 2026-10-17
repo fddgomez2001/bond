@@ -42,7 +42,7 @@ export default async function ListingPage({ params }: PageProps<"/shops/[slug]/i
           <ArrowLeft className="size-4" aria-hidden /> {listing.shop.name}
         </Link>
 
-        <div className="mt-5 grid gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="mt-5 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
           <ListingImage
             path={listing.image_path}
             kind={listing.kind}
@@ -79,7 +79,7 @@ export default async function ListingPage({ params }: PageProps<"/shops/[slug]/i
                 <h2 className="font-heading font-bold text-bond-ink">
                   {listing.service_category === "package" ? "This package includes" : "Inclusions"}
                 </h2>
-                <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {listing.inclusions.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-sm text-bond-ink/80">
                       <Check className="mt-0.5 size-4 shrink-0 text-emerald-600" aria-hidden />

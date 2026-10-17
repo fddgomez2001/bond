@@ -89,7 +89,7 @@ export function ApplicationStatus({
           </section>
         </Reveal>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
           <Reveal delay={60}>
             <section className="h-full rounded-3xl border border-bond-ink/8 bg-white p-6 shadow-[var(--shadow-card)]">
               <h2 className="font-heading text-lg font-bold text-bond-ink">Progress</h2>

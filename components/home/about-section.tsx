@@ -43,7 +43,7 @@ export function AboutSection() {
   return (
     <section id="about" className="bg-bond-night-glow py-16 text-white sm:py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-6">
             <SectionHeading
               tone="dark"
@@ -54,7 +54,7 @@ export function AboutSection() {
               description="BOND is designed to bring customers, vendors, and event communities together through a simple and accessible digital experience."
             />
           </Reveal>
-          <ul className="grid gap-4 sm:grid-cols-3 lg:col-span-6">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:col-span-6">
             {pillars.map((pillar, index) => (
               <Reveal as="li" key={pillar.title} delay={index * 110} className="flex">
                 <div className="group w-full rounded-3xl border border-white/10 bg-white/5 p-5 transition-all duration-500 ease-smooth hover:-translate-y-1 hover:border-bond-yellow/40 hover:bg-white/10">
@@ -70,7 +70,7 @@ export function AboutSection() {
           </ul>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
           {audiences.map((audience, index) => (
             <Reveal key={audience.id} delay={index * 140} variant="scale" className="flex">
             <article

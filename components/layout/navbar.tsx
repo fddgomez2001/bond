@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
+import { siteHeaderTransition } from "@/components/ui/page-transition";
 import { homeNav } from "@/lib/config/site";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,10 @@ export function Navbar({ actions }: { actions: ReactNode }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string>("home");
 
-  useEffect(() => {
+  // Layout effects measure before the first frame: coming back to the
+  // homepage (kept alive in memory) mustn't flash the old scrolled header
+  // or the section that was highlighted when you left.
+  useLayoutEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -24,10 +28,19 @@ export function Navbar({ actions }: { actions: ReactNode }) {
   }, []);
 
   // Highlight the section currently in view, like the bold item in the design.
-  useEffect(() => {
+  useLayoutEffect(() => {
     const sections = homeNav
       .map((item) => (item.section ? document.getElementById(item.section) : null))
       .filter((el): el is HTMLElement => Boolean(el));
+    const syncNow = () => {
+      const line = window.innerHeight * 0.45;
+      const current = sections.find((s) => {
+        const r = s.getBoundingClientRect();
+        return r.top <= line && r.bottom > line;
+      });
+      setActive(current?.id ?? "home");
+    };
+    syncNow();
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -55,6 +68,7 @@ export function Navbar({ actions }: { actions: ReactNode }) {
 
   return (
     <header
+      style={siteHeaderTransition}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-smooth",
         open

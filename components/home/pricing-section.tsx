@@ -19,7 +19,7 @@ export function PricingSection() {
         />
         </Reveal>
 
-        <ul className="mx-auto mt-10 grid max-w-4xl gap-5 sm:mt-14 sm:gap-6 md:grid-cols-2">
+        <ul className="mx-auto mt-10 grid grid-cols-1 max-w-4xl gap-5 sm:mt-14 sm:gap-6 md:grid-cols-2">
           {plans.map((plan, index) => (
             <Reveal as="li" key={plan.name} delay={index * 140} variant="scale" className="flex">
             <div

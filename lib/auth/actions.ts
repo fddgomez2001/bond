@@ -2,7 +2,15 @@
 
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { z } from "zod";
+import {
+  VISITOR_COOKIE,
+  describeRequest,
+  recordSignInAttempt,
+  validVisitorId,
+  type SignInFailure,
+} from "@/lib/analytics/record";
 import { features } from "@/lib/config/features";
 import { checkRateLimits, rateLimits, tooManyAttemptsMessage } from "@/lib/security/rate-limit";
 import { appOrigin, getClientIp, safeNextPath } from "@/lib/security/request";
@@ -53,11 +61,21 @@ export async function signIn(input: unknown, next?: string): Promise<FormState> 
   if (!parsed.success) return invalid(parsed.error);
   const { email, password, remember } = parsed.data;
 
+  // Every attempt is logged for the admin "Site Visitors" page, after the
+  // response is sent so it never slows a login down.
+  const device = describeRequest(await headers());
+  const visitorId = validVisitorId((await cookies()).get(VISITOR_COOKIE)?.value);
+  const logAttempt = (succeeded: boolean, reason: SignInFailure | null, userId: string | null = null) =>
+    after(() => recordSignInAttempt({ email, succeeded, reason, userId, visitorId, device }));
+
   const limit = checkRateLimits(
     [`login:ip:${await ipAddress()}`, `login:email:${email}`],
     rateLimits.login,
   );
-  if (!limit.allowed) return { ok: false, message: tooManyAttemptsMessage(limit.retryAfterSeconds) };
+  if (!limit.allowed) {
+    logAttempt(false, "too_many_attempts");
+    return { ok: false, message: tooManyAttemptsMessage(limit.retryAfterSeconds) };
+  }
 
   const supabase = await createClient({ sessionOnly: !remember });
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -66,11 +84,14 @@ export async function signIn(input: unknown, next?: string): Promise<FormState> 
     // Supabase only reports this once the password is correct, so it does
     // not reveal anything to someone guessing.
     if (error.code === "email_not_confirmed") {
+      logAttempt(false, "email_not_verified");
       await setPendingVerification({ email, role: null });
       redirect("/verify-email?reason=unverified");
     }
+    logAttempt(false, error.code === "invalid_credentials" ? "wrong_password" : "error");
     return { ok: false, message: authErrorMessage(error, "Incorrect email or password.") };
   }
+  logAttempt(true, null, data.user.id);
 
   const cookieStore = await cookies();
   if (remember) {

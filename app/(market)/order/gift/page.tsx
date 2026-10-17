@@ -51,7 +51,7 @@ export default async function GiftOrderPage({ searchParams }: PageProps<"/order/
               {query ? "Try a different search." : "Verified vendors are adding their gifts. Check back soon!"}
             </EmptyState>
           ) : (
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {shops.map((shop, index) => (
                 <Reveal as="li" key={shop.id} delay={Math.min(index, 8) * 60} className="flex">
                   <div className="w-full">

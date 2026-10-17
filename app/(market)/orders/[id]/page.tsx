@@ -50,7 +50,7 @@ export default async function CustomerOrderPage({ params }: PageProps<"/orders/[
         </section>
 
         <MarketContent>
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="space-y-6 lg:col-span-2">
               {order.status === "completed" && (
                 <section className="overflow-hidden rounded-3xl bg-bond-slate p-6 text-white shadow-[var(--shadow-card)]">

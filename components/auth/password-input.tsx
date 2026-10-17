@@ -35,7 +35,7 @@ export function PasswordInput({ invalid, className, ...props }: PasswordInputPro
 /** Live checklist of the password policy. */
 export function PasswordRequirements({ password, id }: { password: string; id?: string }) {
   return (
-    <ul id={id} className="grid gap-1 text-xs sm:grid-cols-2" aria-label="Password requirements">
+    <ul id={id} className="grid grid-cols-1 gap-1 text-xs sm:grid-cols-2" aria-label="Password requirements">
       {passwordRules.map((rule) => {
         const met = rule.test(password);
         return (

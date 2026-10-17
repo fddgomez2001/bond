@@ -16,8 +16,9 @@ Open **SQL Editor** and run these files in order (copy, paste, Run):
 1. `supabase/migrations/20261015000000_phase1_profiles.sql` — creates `profiles`, `vendor_profiles`, `identity_documents`, the sign-up trigger, column grants, and RLS policies.
 2. `supabase/migrations/20261015000100_private_documents_storage.sql` — creates the private `private-documents` bucket (2 MB per file; JPG, PNG, WebP and PDF only) and its read policies.
 3. `supabase/migrations/20261016000000_marketplace.sql` — the order flows: `shops`, `listings`, `cart_items`, `event_bookings`, `orders`, `order_items`, `order_events`, `reviews`, `reports`, the functions that place orders and move them along, their RLS policies, and the public `public-media` bucket for shop logos and listing photos (2 MB, images only).
+4. `supabase/migrations/20261017000000_site_activity.sql` — `site_visits` and `sign_in_attempts` for the admin **Site Visitors** page. Only the server writes them and only admins can read them; no IP addresses are stored and rows are deleted after 90 days.
 
-All three are safe to re-run. If you use the Supabase CLI instead: `npx supabase link --project-ref <ref>`, then `npx supabase db push`.
+All four are safe to re-run. If you use the Supabase CLI instead: `npx supabase link --project-ref <ref>`, then `npx supabase db push`.
 
 **Check it worked:** in **Table Editor** you should see `profiles`, `vendor_profiles`, `identity_documents` and the nine marketplace tables, each with RLS enabled. In **Storage** you should see `private-documents` (*private*) and `public-media` (*public*).
 

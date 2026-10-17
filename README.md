@@ -38,7 +38,7 @@ The app runs without Supabase keys: every page renders, forms validate, and auth
 
 ## Setting up Supabase
 
-Full walkthrough: **[docs/supabase-setup.md](docs/supabase-setup.md)** — run the three SQL migrations (the third, `20261016000000_marketplace.sql`, adds shops, listings and orders), configure auth settings and redirect URLs, and paste the email templates that include the 6-digit code.
+Full walkthrough: **[docs/supabase-setup.md](docs/supabase-setup.md)** — run the four SQL migrations (`20261016000000_marketplace.sql` adds shops, listings and orders; `20261017000000_site_activity.sql` adds the visitor log), configure auth settings and redirect URLs, and paste the email templates that include the 6-digit code.
 
 ## Deploying to Vercel
 
@@ -72,6 +72,8 @@ Checklist and domain setup: **[docs/deployment.md](docs/deployment.md)**.
 | `/dashboard/vendor/sales`, `/reviews`, `/marketing` | Held vs. released payments, ratings, shareable shop link |
 | `/dashboard/admin/listings` | Admin: approve or reject products and services |
 | `/dashboard/admin/orders`, `/reports` | Admin: every order; resolve reported problems (refund or release) |
+| `/dashboard/admin/visitors` | Admin: who visits the site (device, phone model, browser, approximate location, how often) and every sign-in attempt |
+| `/api/track` | Page-view beacon used by the visitor tracker (same-site only, rate limited) |
 | `/dashboard/admin` | Admin overview: member and application stats, items waiting for review |
 | `/dashboard/admin/vendors` | Admin: vendor application queue by status |
 | `/dashboard/admin/vendors/[id]` | Admin: review documents, approve / request resubmission / reject |

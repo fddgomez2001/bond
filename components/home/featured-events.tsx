@@ -18,7 +18,7 @@ export function FeaturedEvents() {
           />
         </Reveal>
 
-        <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <ul className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {demoEvents.map((event, index) => (
             <Reveal as="li" key={event.id} delay={index * 120} className="flex">
               <article className="group flex w-full flex-col overflow-hidden rounded-[28px] border border-bond-ink/8 bg-white shadow-[var(--shadow-card)] transition-all duration-500 ease-smooth hover:-translate-y-1.5 hover:shadow-[var(--shadow-card-hover)]">

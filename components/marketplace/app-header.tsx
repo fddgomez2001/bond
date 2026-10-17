@@ -5,6 +5,7 @@ import { Logo } from "@/components/brand/logo";
 import { AccountMenu } from "@/components/dashboard/account-menu";
 import { GuestActions } from "@/components/layout/nav-auth-actions";
 import { buttonClasses } from "@/components/ui/button";
+import { siteHeaderTransition } from "@/components/ui/page-transition";
 import { dashboardPathFor } from "@/lib/auth/routes";
 import { getCurrentAccount } from "@/lib/auth/session";
 import { cartCount } from "@/lib/marketplace/customer-data";
@@ -34,7 +35,7 @@ function navFor(role: UserRole | undefined): MarketNavItem[] {
  */
 export function AppHeader() {
   return (
-    <header className="sticky top-0 z-40 bg-bond-yellow/95 shadow-[0_8px_30px_-18px_rgba(56,73,73,0.5)] backdrop-blur supports-[backdrop-filter]:bg-bond-yellow/85">
+    <header style={siteHeaderTransition} className="sticky top-0 z-40 bg-bond-yellow/95 shadow-[0_8px_30px_-18px_rgba(56,73,73,0.5)] backdrop-blur supports-[backdrop-filter]:bg-bond-yellow/85">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-8 lg:px-10">
         <Logo tone="light" href="/" transitionTypes={["nav-back"]} className="w-[104px] sm:w-[120px]" />
         <Suspense fallback={<SessionFallback />}>

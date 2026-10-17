@@ -23,7 +23,7 @@ export function ReviewsView({ reviews }: { reviews: Review[] }) {
             When customers confirm an order, they&apos;re asked how it went. Their ratings will show up here.
           </EmptyState>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <Reveal>
               <section className="rounded-3xl bg-bond-slate p-6 text-white shadow-[var(--shadow-card)] lg:sticky lg:top-6">
                 <p className="text-sm font-semibold text-white/75">Average rating</p>

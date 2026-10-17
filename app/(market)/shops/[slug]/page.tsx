@@ -118,7 +118,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/sho
                     Reviews appear after customers confirm their orders.
                   </EmptyState>
                 ) : (
-                  <ul className="grid gap-4 md:grid-cols-2">
+                  <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     {reviews.map((review, index) => (
                       <Reveal as="li" key={review.id} delay={Math.min(index, 6) * 50}>
                         <article className="h-full rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)]">
@@ -140,7 +140,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/sho
               ) : (
                 <>
                   <p className="mb-5 text-sm text-bond-ink/60">{kindMeta[tab].description}</p>
-                  <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {shown.map((listing, index) => (
                       <Reveal as="li" key={listing.id} delay={Math.min(index, 8) * 50} className="flex">
                         <div className="w-full">

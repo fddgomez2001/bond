@@ -52,7 +52,7 @@ export function AppointmentPrompt({ bookingId, minLocal, maxLocal }: { bookingId
 
       <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-smooth ${open ? "mt-5 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
         <div className="overflow-hidden" inert={!open}>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field id="appointment-at" label="Preferred date & time" required>
               <Input id="appointment-at" type="datetime-local" min={minLocal} max={maxLocal} value={at} onChange={(e) => setAt(e.target.value)} />
             </Field>

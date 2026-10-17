@@ -72,7 +72,7 @@ export function ListingQueue({ status, listings, counts }: { status: ListingStat
               <ul className="space-y-4">
                 {listings.map((listing, index) => (
                   <Reveal as="li" key={listing.id} delay={Math.min(index, 6) * 50}>
-                    <article className="grid gap-5 rounded-3xl border border-bond-ink/8 bg-white p-4 shadow-[var(--shadow-card)] sm:p-5 lg:grid-cols-[12rem_1fr_11rem]">
+                    <article className="grid grid-cols-1 gap-5 rounded-3xl border border-bond-ink/8 bg-white p-4 shadow-[var(--shadow-card)] sm:p-5 lg:grid-cols-[12rem_1fr_11rem]">
                       <ListingImage
                         path={listing.image_path}
                         kind={listing.kind}
@@ -98,7 +98,7 @@ export function ListingQueue({ status, listings, counts }: { status: ListingStat
                         <Price amount={listing.price} className="mt-1 block font-heading font-bold text-bond-slate" />
                         <p className="mt-2 text-sm whitespace-pre-line text-bond-ink/75">{listing.description}</p>
                         {listing.inclusions.length > 0 && (
-                          <ul className="mt-3 grid gap-1 text-sm text-bond-ink/75 sm:grid-cols-2">
+                          <ul className="mt-3 grid grid-cols-1 gap-1 text-sm text-bond-ink/75 sm:grid-cols-2">
                             {listing.inclusions.map((item) => (
                               <li key={item} className="flex items-start gap-2">
                                 <Check className="mt-0.5 size-4 shrink-0 text-emerald-600" aria-hidden />

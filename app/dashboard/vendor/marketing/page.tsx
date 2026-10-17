@@ -60,7 +60,7 @@ export default async function VendorMarketingPage() {
                 </section>
               </Reveal>
 
-              <ul className="grid gap-4 md:grid-cols-3">
+              <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 {tips.map((tip, index) => (
                   <Reveal as="li" key={tip.title} delay={index * 70}>
                     <div className="h-full rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)]">
@@ -78,7 +78,7 @@ export default async function VendorMarketingPage() {
                 <section className="rounded-3xl bg-bond-slate p-6 text-white">
                   <p className="text-xs font-bold tracking-wider text-bond-yellow uppercase">Coming soon</p>
                   <h2 className="mt-1 font-heading text-lg font-bold">Promotions & featured listings</h2>
-                  <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <li className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 text-sm">
                       <TicketPercent className="size-5 text-bond-yellow" aria-hidden /> Discount codes for your shop
                     </li>

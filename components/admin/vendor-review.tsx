@@ -45,13 +45,13 @@ export function VendorReview({ application }: { application: Application }) {
       />
 
       <WorkspaceContent>
-        <div className="grid gap-6 xl:grid-cols-12">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
           <div className="space-y-6 xl:col-span-8">
             {/* Vendor details */}
             <Reveal>
               <section className="rounded-3xl bg-white p-6 shadow-[var(--shadow-card)] sm:p-8">
                 <h2 className="font-heading text-lg font-bold text-bond-ink">Vendor details</h2>
-                <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                   <Detail label="Email address">
                     <span className="break-all">{email ?? "Hidden (service role key not set)"}</span>
                     {email && (
@@ -81,7 +81,7 @@ export function VendorReview({ application }: { application: Application }) {
                   <h2 className="font-heading text-lg font-bold text-bond-ink">Documents</h2>
                   <p className="text-xs text-bond-ink/55">Private links — they expire after 10 minutes. Refresh to renew.</p>
                 </div>
-                <ul className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {documents.map((doc) => (
                     <li key={doc.type} className="flex flex-col overflow-hidden rounded-2xl border border-bond-ink/10">
                       <div className="flex aspect-[4/3] items-center justify-center bg-[repeating-conic-gradient(#f7f3e6_0%_25%,#fffdf6_0%_50%)] bg-[length:20px_20px]">

@@ -161,7 +161,7 @@ export function EventWizard({ options, minLocal, initialListing }: { options: Fl
                 {errors.eventType}
               </p>
             )}
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {eventTypes.map((type) => {
                 const Icon = typeIcons[type.value];
                 const active = eventType === type.value;
@@ -198,7 +198,7 @@ export function EventWizard({ options, minLocal, initialListing }: { options: Fl
               <h2 className="font-heading text-lg font-bold text-bond-ink">When and where?</h2>
               <p className="text-sm text-bond-ink/60">Philippine time. Book at least a day ahead so organizers can prepare.</p>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field id="event-when" label="Date & time" required error={errors.eventAt}>
                 <Input
                   id="event-when"
@@ -294,7 +294,7 @@ export function EventWizard({ options, minLocal, initialListing }: { options: Fl
                   You can still put your event together service by service.
                 </EmptyState>
               ) : (
-                <ul className="grid gap-4 md:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {packages.map((option) => {
                     const active = option.id === packageId;
                     const open = preview === option.id;
@@ -459,7 +459,7 @@ export function EventWizard({ options, minLocal, initialListing }: { options: Fl
         )}
 
         {step === 3 && eventType && (
-          <section className="grid gap-6 lg:grid-cols-3">
+          <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="space-y-5 rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6 lg:col-span-2">
               <h2 className="font-heading text-lg font-bold text-bond-ink">Review your booking</h2>
               <ul className="space-y-3 text-sm">

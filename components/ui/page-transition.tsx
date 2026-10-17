@@ -1,30 +1,29 @@
 import { ViewTransition, type ReactNode } from "react";
 
 /**
- * Animates a page's content during navigation (View Transitions API; see
- * the ::view-transition rules in globals.css).
- *  - Links tagged transitionTypes={["nav-forward"]} or ["nav-back"] fade
- *    the old page out with a slight zoom.
- *  - The new page always rises and fades in.
- * Browsers without View Transitions simply navigate normally.
+ * Page changes are a calm crossfade (CSS in globals.css): the new page
+ * fades in on top while the old one stays fully visible underneath until
+ * the new one has nearly arrived, then fades away. Nothing slides, zooms
+ * or blurs, and the light page background never shows through in between
+ * (that was the white flash). The site header is held still on its own
+ * (siteHeaderTransition below). Browsers without View Transitions just swap.
  */
 export function PageTransition({ children }: { children: ReactNode }) {
   return (
-    <ViewTransition
-      enter="page-in"
-      exit={{ "nav-forward": "page-out", "nav-back": "page-out", default: "none" }}
-      default="none"
-    >
+    <ViewTransition enter="page-enter" exit="page-exit" default="none">
       {children}
     </ViewTransition>
   );
 }
 
-/** Wraps a loading skeleton so it slides in, then fades away as content arrives. */
+/** Loading screens take part in the same crossfade, in and out. */
 export function SkeletonTransition({ children }: { children: ReactNode }) {
-  return (
-    <ViewTransition enter="page-in" exit="skeleton-out" default="none">
-      {children}
-    </ViewTransition>
-  );
+  return <PageTransition>{children}</PageTransition>;
 }
+
+/**
+ * Spread onto each page's top header. During a page change the header
+ * switches instantly instead of two headers fading through each other
+ * (which showed doubled text like "HHome").
+ */
+export const siteHeaderTransition = { viewTransitionName: "site-header" } as const;

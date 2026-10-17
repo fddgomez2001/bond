@@ -25,7 +25,7 @@ const roles = [
 
 export function RoleSelection() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {roles.map((role) => (
         <Link
           key={role.href}

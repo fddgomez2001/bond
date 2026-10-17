@@ -30,7 +30,7 @@ export default async function PayOrderPage({ params }: PageProps<"/orders/[id]/p
           <WizardSteps steps={steps} current={steps.length - 1} />
         </MarketHero>
         <MarketContent>
-          <div className="grid gap-6 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
             <section className="rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6 lg:col-span-3">
               <PaymentPanel target={{ type: "order", id: order.id }} amount={formatPeso(Number(order.total))} />
             </section>

@@ -143,7 +143,7 @@ export function SurpriseWizard({ options, minLocal, initialListing }: { options:
                   {errors.listingId}
                 </p>
               )}
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {options.map((option) => {
                   const selected = option.id === values.listingId;
                   return (
@@ -192,7 +192,7 @@ export function SurpriseWizard({ options, minLocal, initialListing }: { options:
           ))}
 
         {step === 2 && chosen && (
-          <section className="grid gap-6 lg:grid-cols-3">
+          <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="space-y-4 rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6 lg:col-span-2">
               <h2 className="font-heading text-lg font-bold text-bond-ink">Review your surprise</h2>
               <ul className="space-y-3 text-sm">

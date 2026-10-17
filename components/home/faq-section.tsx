@@ -8,7 +8,7 @@ import { faqs } from "@/lib/data/home-content";
 export function FaqSection() {
   return (
     <section id="faq" className="bg-bond-night-glow py-16 sm:py-24 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-10">
+      <div className="mx-auto grid grid-cols-1 max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-10">
         <Reveal className="lg:col-span-5">
           <h2 className="font-heading text-4xl leading-[1.05] font-bold text-white sm:text-[3.4rem]">
             Frequently Asked Questions

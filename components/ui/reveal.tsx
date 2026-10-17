@@ -1,6 +1,15 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, type CSSProperties, type ReactNode } from "react";
+
+/** True while a page-change view transition is running. */
+function inPageTransition() {
+  try {
+    return document.documentElement.matches(":active-view-transition");
+  } catch {
+    return false; // Browser without the selector: keep the normal reveal.
+  }
+}
 
 /**
  * Fades and lifts its content in the first time it scrolls into view.
@@ -23,6 +32,18 @@ export function Reveal({
   as?: "div" | "li" | "section" | "article";
 }) {
   const ref = useRef<HTMLElement>(null);
+
+  // Arriving on a page: whatever is already on screen belongs to that page,
+  // so it comes in with the page crossfade instead of rising up afterwards.
+  // (Layout effect: runs before the new page is captured for the fade.)
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || el.hasAttribute("data-revealed") || !inPageTransition()) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.setAttribute("data-reveal-instant", "");
+      el.setAttribute("data-revealed", "");
+    }
+  }, []);
 
   useEffect(() => {
     const el = ref.current;

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  Activity,
   BarChart3,
   ClipboardCheck,
   Flag,
@@ -43,6 +44,7 @@ const config = {
       { href: "/dashboard/admin/orders", label: "Orders", icon: Receipt },
       { href: "/dashboard/admin/reports", label: "Reports", icon: Flag, badge: "reports" },
       { href: "/dashboard/admin/users", label: "User Management", icon: Users },
+      { href: "/dashboard/admin/visitors", label: "Site Visitors", icon: Activity },
     ],
     account: [
       { href: "/dashboard/admin/profile", label: "View Profile", icon: UserRound },

@@ -106,7 +106,7 @@ export function CustomerHome({
           <h2 id="start-heading" className="sr-only">
             Start an order
           </h2>
-          <ul className="grid gap-4 md:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {entryPoints.map((entry, index) => (
               <Reveal as="li" key={entry.href} delay={index * 90} className="flex">
                 <Link
@@ -147,7 +147,7 @@ export function CustomerHome({
               When you send a gift, plan a surprise or book an event, you can follow every step here.
             </EmptyState>
           ) : (
-            <ul className="mt-5 grid gap-3 md:grid-cols-2">
+            <ul className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
               {recent.map((item, index) => (
                 <Reveal as="li" key={item.id} delay={index * 60}>
                   <Link
@@ -183,7 +183,7 @@ export function CustomerHome({
               Verified vendors are setting up their shops. Check back soon!
             </EmptyState>
           ) : (
-            <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {shops.map((shop, index) => (
                 <Reveal as="li" key={shop.id} delay={index * 70} className="flex">
                   <div className="w-full">
@@ -197,13 +197,13 @@ export function CustomerHome({
 
         {/* Account */}
         <section id="account" className="border-t border-bond-ink/8 bg-bond-cream/60">
-          <div className="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-8 lg:grid-cols-3 lg:px-10">
+          <div className="mx-auto grid grid-cols-1 max-w-7xl gap-6 px-4 py-14 sm:px-8 lg:grid-cols-3 lg:px-10">
             <div className="rounded-3xl bg-white p-6 shadow-[var(--shadow-card)] sm:p-8 lg:col-span-2">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h2 className="font-heading text-xl font-bold text-bond-ink">Your profile</h2>
                 <span className="text-xs text-bond-ink/50">Profile editing is coming soon</span>
               </div>
-              <dl className="mt-6 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
                 <Detail label="First name" value={profile.first_name} />
                 <Detail label="Last name" value={profile.last_name} />
                 <Detail label="Email address" value={email} />

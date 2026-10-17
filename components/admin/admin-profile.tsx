@@ -24,7 +24,7 @@ export function AdminProfile({
       <WorkspaceHeader eyebrow="Admin · Account" title="Your profile" description="The account you use to manage BOND." />
 
       <WorkspaceContent>
-        <div className="grid gap-6 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <Reveal className="xl:col-span-2">
             <section className="rounded-3xl border border-bond-ink/8 bg-white p-6 shadow-[var(--shadow-card)] sm:p-8">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
@@ -44,7 +44,7 @@ export function AdminProfile({
                 </div>
               </div>
 
-              <dl className="mt-8 grid gap-x-8 gap-y-5 border-t border-bond-ink/8 pt-6 sm:grid-cols-2">
+              <dl className="mt-8 grid grid-cols-1 gap-x-8 gap-y-5 border-t border-bond-ink/8 pt-6 sm:grid-cols-2">
                 <Detail icon={<UserRound className="size-4" />} label="Full name">{name}</Detail>
                 <Detail icon={<Mail className="size-4" />} label="Email address">
                   <span className="break-all">{email ?? "—"}</span>

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { Logo } from "@/components/brand/logo";
-import { SkeletonTransition } from "@/components/ui/page-transition";
+import { SkeletonTransition, siteHeaderTransition } from "@/components/ui/page-transition";
 
 /**
  * Shown instantly while any dashboard loads, so navigation never flashes a
@@ -13,7 +13,7 @@ export default function DashboardLoading() {
       <div className="flex min-h-dvh flex-col bg-bond-paper" role="status" aria-live="polite">
         <span className="sr-only">Loading your dashboard…</span>
 
-        <header className="bg-bond-yellow">
+        <header style={siteHeaderTransition} className="bg-bond-yellow">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-8 lg:px-10">
             <Logo tone="light" href={null} />
             <div className="hidden gap-7 md:flex">
@@ -30,7 +30,7 @@ export default function DashboardLoading() {
 
         <section className="relative overflow-hidden bg-bond-yellow pb-16">
           <div aria-hidden className="pointer-events-none absolute -top-20 -right-24 size-[28rem] rounded-full bg-white/20 blur-3xl" />
-          <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pt-8 sm:px-8 lg:grid-cols-12 lg:items-end lg:px-10 lg:pt-14">
+          <div className="relative mx-auto grid grid-cols-1 max-w-7xl gap-10 px-4 pt-8 sm:px-8 lg:grid-cols-12 lg:items-end lg:px-10 lg:pt-14">
             <div className="space-y-5 lg:col-span-7">
               <Bar className="h-14 w-64 bg-white/60 sm:h-20 sm:w-96" />
               <Bar className="h-5 w-full max-w-xl bg-white/45" />
@@ -46,7 +46,7 @@ export default function DashboardLoading() {
           </div>
         </section>
 
-        <div className="relative z-10 mx-auto -mt-8 grid w-full max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-10">
+        <div className="relative z-10 mx-auto -mt-8 grid grid-cols-1 w-full max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-10">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)]">
               <span className="block size-11 animate-pulse rounded-2xl bg-bond-yellow/50" />

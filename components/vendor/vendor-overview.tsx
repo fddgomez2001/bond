@@ -143,7 +143,7 @@ export function VendorOverview({ firstName, stats }: { firstName: string | null;
                   style={{ width: `${(doneCount / setup.length) * 100}%` }}
                 />
               </div>
-              <ol className="grid gap-px bg-bond-ink/8 sm:grid-cols-2 lg:grid-cols-4">
+              <ol className="grid grid-cols-1 gap-px bg-bond-ink/8 sm:grid-cols-2 lg:grid-cols-4">
                 {setup.map((step, index) => (
                   <li key={step.label} className="bg-white">
                     <Link href={step.href} className="group flex h-full gap-3 p-5 transition-colors hover:bg-bond-paper">
@@ -201,11 +201,11 @@ export function VendorOverview({ firstName, stats }: { firstName: string | null;
           ))}
         </ul>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
           <Reveal delay={80} className="lg:col-span-2">
             <section className="h-full rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6">
               <h2 className="font-heading text-base font-bold text-bond-ink">Quick actions</h2>
-              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+              <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {[
                   { href: "/dashboard/vendor/products/new?kind=gift", icon: PackagePlus, label: "Add a gift product" },
                   { href: "/dashboard/vendor/products/new?kind=surprise", icon: PartyPopper, label: "Add a surprise" },

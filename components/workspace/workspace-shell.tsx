@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
+import { siteHeaderTransition } from "@/components/ui/page-transition";
 import { cn } from "@/lib/utils";
 
 const ShellContext = createContext<{ closeSidebar: () => void }>({ closeSidebar: () => {} });
@@ -48,7 +49,7 @@ export function WorkspaceShell({
     <ShellContext value={{ closeSidebar: () => setOpen(false) }}>
       <div className="min-h-dvh bg-bond-paper lg:pl-72">
         {/* Phone / tablet top bar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 bg-bond-slate px-3 py-2.5 shadow-[0_8px_24px_-12px_rgba(29,33,48,0.5)] sm:px-5 lg:hidden">
+        <header style={siteHeaderTransition} className="sticky top-0 z-30 flex items-center justify-between gap-3 bg-bond-slate px-3 py-2.5 shadow-[0_8px_24px_-12px_rgba(29,33,48,0.5)] sm:px-5 lg:hidden">
           <button
             type="button"
             onClick={() => setOpen(true)}

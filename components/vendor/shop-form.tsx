@@ -42,7 +42,7 @@ export function ShopForm({ shop, logoUrl }: { shop: Shop | null; logoUrl: string
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-3" noValidate>
+    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 lg:grid-cols-3" noValidate>
       <fieldset disabled={pending} className="space-y-5 rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6 lg:col-span-2">
         <legend className="sr-only">Shop details</legend>
         <Field id="shop-name" label="Shop name" required error={error("name")}>
@@ -76,7 +76,7 @@ export function ShopForm({ shop, logoUrl }: { shop: Shop | null; logoUrl: string
             placeholder="What you make, how long you've been doing it, what makes you special."
           />
         </Field>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field id="shop-city" label="City / area" error={error("city")}>
             <Input id="shop-city" name="city" defaultValue={shop?.city ?? ""} maxLength={80} placeholder="e.g. Cebu City" />
           </Field>
@@ -119,7 +119,7 @@ export function ShopForm({ shop, logoUrl }: { shop: Shop | null; logoUrl: string
 
         <fieldset>
           <legend className="text-sm font-semibold text-bond-ink">What do you offer?</legend>
-          <div className="mt-2 grid gap-3 sm:grid-cols-3">
+          <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {(Object.keys(kindMeta) as ListingKind[]).map((kind) => {
               const Icon = offerIcons[kind];
               const checked = offers.includes(kind);

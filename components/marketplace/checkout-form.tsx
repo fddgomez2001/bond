@@ -28,7 +28,7 @@ export function DeliveryFields({
   const id = (k: string) => `${idPrefix}-${k}`;
   return (
     <div className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field id={id("name")} label="Recipient's name" required error={errors.recipientName}>
           <Input
             id={id("name")}

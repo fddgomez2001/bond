@@ -24,7 +24,7 @@ export default async function CheckoutPage() {
           <WizardSteps steps={giftSteps} current={2} />
         </MarketHero>
         <MarketContent>
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <CheckoutForm
                 shopId={cart.shop.id}

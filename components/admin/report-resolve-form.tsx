@@ -52,7 +52,7 @@ export function ReportResolveForm({ reportId }: { reportId: string }) {
       }}
       className="space-y-4"
     >
-      <fieldset disabled={pending} className="grid gap-2 sm:grid-cols-2">
+      <fieldset disabled={pending} className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         <legend className="mb-2 text-sm font-semibold text-bond-ink">Decision</legend>
         {options.map((option) => (
           <label

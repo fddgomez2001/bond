@@ -40,7 +40,7 @@ export function SalesView({ orders }: { orders: VendorOrderRow[] }) {
           (e.g. PayMongo) is connected.
         </Alert>
 
-        <ul className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
           {cards.map((card, index) => (
             <Reveal as="li" key={card.label} delay={index * 70}>
               <div

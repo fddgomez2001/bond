@@ -6,6 +6,7 @@ import { useWatch } from "react-hook-form";
 import { ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react";
 import { Alert, ErrorMessage } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { LegalAgreement } from "@/components/legal/legal-agreement";
 import { MAX_TOTAL_UPLOAD_BYTES, documentTypes, formatBytes, type DocumentType } from "@/lib/config/uploads";
 import { personalInfoFields, vendorRegistrationSchema } from "@/lib/validations/registration";
 import { AuthAsideIntro, AuthFormHeader, AuthShell } from "./auth-shell";
@@ -186,17 +187,7 @@ export function VendorRegistrationForm({ configured }: { configured: boolean }) 
           )}
         </div>
 
-        <p className="text-center text-xs text-bond-ink/55">
-          By registering you agree to the{" "}
-          <Link href="/terms" className="underline">
-            Terms of Service
-          </Link>{" "}
-          and{" "}
-          <Link href="/privacy" className="underline">
-            Privacy Policy
-          </Link>
-          .
-        </p>
+        <LegalAgreement prefix="By registering you agree to the" />
       </form>
     </AuthShell>
   );

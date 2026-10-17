@@ -94,7 +94,7 @@ export function AdminOverview({ firstName, data }: { firstName: string | null; d
           </section>
         </Reveal>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
           {/* Waiting longest */}
           <Reveal delay={160}>
             <section className="h-full rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6">

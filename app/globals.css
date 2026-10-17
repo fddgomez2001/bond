@@ -320,52 +320,78 @@ html:has(dialog[open]) {
 
 /* ------------------------------------------------------------------ */
 /* Page transitions (components/ui/page-transition.tsx).               */
-/* Old and new pages overlap — the old softly zooms out while the new  */
-/* rises in — so there is never a blank frame between them.            */
+/* A calm crossfade in place: nothing slides, zooms or blurs, the      */
+/* header stays put, and there is never a blank or white frame.        */
 /* ------------------------------------------------------------------ */
+::view-transition {
+  /* Clicks during the short fade reach the new page. */
+  pointer-events: none;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 320ms;
   animation-timing-function: var(--ease-smooth);
 }
 
-::view-transition-old(.page-out) {
-  animation: vt-page-out 340ms var(--ease-smooth) both;
+/* The header stays put and switches instantly (no doubled text). */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
 }
 
-::view-transition-new(.page-in) {
-  animation: vt-page-in 520ms var(--ease-smooth) both;
+::view-transition-old(site-header) {
+  display: none;
 }
 
-::view-transition-old(.skeleton-out) {
-  animation: vt-fade-out 260ms ease-out both;
+::view-transition-new(site-header) {
+  animation: none;
 }
 
-/* Admin status tabs: the old list fades, the new one rises in. */
+/* Page content. The new page fades in on top and is fully there by 60%;
+   the old page stays fully visible underneath until 40%, then fades. So
+   the new page always fades in over the old one, never over the light
+   background (no white flash), and nothing moves. */
+::view-transition-new(.page-enter) {
+  animation: vt-page-enter 360ms ease-out both;
+}
+
+::view-transition-old(.page-exit) {
+  animation: vt-page-exit 360ms ease-in both;
+}
+
+@keyframes vt-page-enter {
+  0% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-page-exit {
+  0%,
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Tabs and filters: the old list fades out, the new one fades in. */
 ::view-transition-old(.list-out) {
-  animation: vt-fade-out 180ms ease-out both;
+  animation: vt-fade-out 160ms ease-out both;
 }
 
 ::view-transition-new(.list-in) {
-  animation: vt-page-in 420ms var(--ease-smooth) 60ms both;
+  animation: vt-fade-in 280ms var(--ease-smooth) 60ms both;
 }
 
-@keyframes vt-page-out {
-  to {
-    opacity: 0;
-    transform: scale(0.965);
-    filter: blur(6px);
-  }
-}
-
-@keyframes vt-page-in {
+@keyframes vt-fade-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 28px, 0) scale(0.99);
-    filter: blur(4px);
-  }
-  45% {
-    opacity: 1;
   }
 }
 
@@ -373,6 +399,12 @@ html:has(dialog[open]) {
   to {
     opacity: 0;
   }
+}
+
+/* Content already on screen when a page arrives is part of that page:
+   it appears with the crossfade instead of rising in afterwards. */
+[data-reveal][data-reveal-instant] {
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

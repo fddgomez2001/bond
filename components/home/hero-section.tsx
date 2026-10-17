@@ -17,7 +17,7 @@ export function HeroSection() {
       <div aria-hidden className="pointer-events-none absolute -top-32 right-[-15%] -z-10 size-[42rem] rounded-full bg-white/20 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute bottom-[-20%] left-[-10%] -z-10 size-[30rem] rounded-full bg-bond-gold/30 blur-3xl" />
 
-      <div className="mx-auto grid w-full max-w-7xl px-4 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-x-4 lg:px-10 2xl:max-w-[86rem]">
+      <div className="mx-auto grid grid-cols-1 w-full max-w-7xl px-4 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-x-4 lg:px-10 2xl:max-w-[86rem]">
         {/* Copy */}
         <div className="flex flex-col justify-center pb-4 lg:pb-20">
           <p

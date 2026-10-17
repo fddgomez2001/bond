@@ -14,6 +14,8 @@ import { PageTransition } from "@/components/ui/page-transition";
 export default function HomePage() {
   return (
     <>
+      {/* Before the navbar, so the page is back at the top when the navbar measures it. */}
+      <HomeEnterEffects />
       <Navbar
         actions={
           // The page itself is static; only the login state streams in.
@@ -22,7 +24,6 @@ export default function HomePage() {
           </Suspense>
         }
       />
-      <HomeEnterEffects />
       <PageTransition>
         <main className="flex-1">
           <HeroSection />

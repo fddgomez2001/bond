@@ -11,7 +11,7 @@ export function WorkspaceLoading() {
           <span className="mt-3 block h-10 w-72 max-w-full animate-pulse rounded-full bg-white/60" />
           <span className="mt-3 block h-4 w-96 max-w-full animate-pulse rounded-full bg-white/45" />
         </div>
-        <div className="grid gap-4 px-4 py-8 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-10">
+        <div className="grid grid-cols-1 gap-4 px-4 py-8 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-10">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="h-28 animate-pulse rounded-3xl border border-bond-ink/8 bg-white" />
           ))}

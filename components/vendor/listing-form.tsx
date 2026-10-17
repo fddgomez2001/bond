@@ -102,7 +102,7 @@ export function ListingForm({
         </Alert>
       )}
 
-      <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-3" noValidate>
+      <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 lg:grid-cols-3" noValidate>
         <fieldset
           disabled={pending}
           className="space-y-5 rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] sm:p-6 lg:col-span-2"
@@ -112,7 +112,7 @@ export function ListingForm({
           {group === "products" && (
             <fieldset>
               <legend className="text-sm font-semibold text-bond-ink">Type</legend>
-              <div className="mt-2 grid gap-3 sm:grid-cols-2">
+              <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {(["gift", "surprise"] as const).map((value) => {
                   const Icon = kindIcons[value];
                   return (

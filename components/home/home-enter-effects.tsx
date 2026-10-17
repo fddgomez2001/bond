@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 /**
  * Runs every time the homepage becomes visible — on first load and when
@@ -11,11 +11,15 @@ import { useEffect } from "react";
  *    animation and image fade don't replay.
  */
 export function HomeEnterEffects() {
-  useEffect(() => {
+  // Before the first frame (and before the page-change snapshot), so the
+  // hero is already in place instead of jumping or scrolling up afterwards.
+  useLayoutEffect(() => {
     if (!window.location.hash) {
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
+  }, []);
 
+  useEffect(() => {
     const root = document.documentElement;
     if (root.hasAttribute("data-hero-seen")) return;
     const timer = window.setTimeout(() => {

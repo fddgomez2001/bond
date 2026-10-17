@@ -57,7 +57,7 @@ export function ReportList({ status, data }: { status: "open" | "resolved"; data
                   const order = report.order;
                   return (
                     <Reveal as="li" key={report.id} delay={Math.min(index, 6) * 50}>
-                      <article className="grid gap-5 rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] lg:grid-cols-[1fr_22rem]">
+                      <article className="grid grid-cols-1 gap-5 rounded-3xl border border-bond-ink/8 bg-white p-5 shadow-[var(--shadow-card)] lg:grid-cols-[1fr_22rem]">
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="font-heading font-bold text-bond-ink">{order?.order_number}</span>
@@ -71,7 +71,7 @@ export function ReportList({ status, data }: { status: "open" | "resolved"; data
                           <p className="mt-1 text-xs text-bond-ink/50">Reported {formatDateTime(report.created_at)}</p>
 
                           {order && (
-                            <dl className="mt-4 grid gap-3 rounded-2xl bg-bond-paper p-4 text-sm sm:grid-cols-2">
+                            <dl className="mt-4 grid grid-cols-1 gap-3 rounded-2xl bg-bond-paper p-4 text-sm sm:grid-cols-2">
                               <Info icon={UserRound} label="Customer">
                                 {order.customer_name}
                                 {order.customer_phone && (

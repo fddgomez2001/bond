@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { Outfit, Poppins, Wix_Madefor_Display } from "next/font/google";
+import { VisitTracker } from "@/components/analytics/visit-tracker";
 import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "@/lib/config/site";
 import "./globals.css";
@@ -53,6 +54,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // Smooth scrolling stays for in-page links (#faq), but Next.js turns it
+      // off while changing pages so a new page never visibly scrolls to the top.
+      data-scroll-behavior="smooth"
       // The boot script adds attributes before React hydrates.
       suppressHydrationWarning
       className={`${outfit.variable} ${poppins.variable} ${wix.variable} h-full`}
@@ -65,6 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* usePathname() inside reads the URL, so it needs its own boundary. */}
         <Suspense fallback={null}>
           <Toaster />
+          <VisitTracker />
         </Suspense>
       </body>
     </html>
